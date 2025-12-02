@@ -1,0 +1,234 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Set the background color to #ecf1f7 and prepare page layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f3f7fd;  /* updated background */
+  color: #1f2937;             /* changed from #ecf1f7 to a readable color */
+}
+
+/* Use flexbox layout for sticky footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+   /* add space at top and bottom */
+}
+
+/* Main container for login form */
+.login-container {
+  background-color: #ffffff;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 400px;
+  margin: 3rem auto 2rem auto;       /* center horizontally and vertically */
+  margin-bottom: 2rem; /* space at the bottom */
+  flex-shrink: 0;
+       /* prevent shrinking */
+}
+
+
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #6366f1;
+}
+
+.sub-text {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon i {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+.input-icon input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+  transition: border 0.3s, background-color 0.3s;
+}
+
+.input-icon input:focus {
+  border-color: #6366f1;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.remember-me input {
+  margin-right: 0.4rem;
+}
+
+.forgot-password {
+  color: #6366f1;
+  text-decoration: none;
+  
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.btn-login {
+  width: 100%;
+  background-color: #6366f1;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+  background-color: #4f46e5;
+}
+
+.footer-text {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Make footer always at the bottom */
+
+
+.footer-text a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+.social-login {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.social-title {
+  margin-bottom: 0.75rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.btn-social i {
+  font-size: 1rem;
+}
+
+/* Brand colors */
+.google {
+  background-color: #db4437;
+}
+
+.google:hover {
+  background-color: #c1351d;
+}
+
+.facebook {
+  background-color: #1877f2;
+}
+
+.facebook:hover {
+  background-color: #145dbf;
+}
+
+.linkedin {
+  background-color: #0a66c2;
+}
+
+.linkedin:hover {
+  background-color: #004182;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #d1d5db;
+}
+
+.divider span {
+  padding: 0 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 2rem 1.5rem;
+  }
+}

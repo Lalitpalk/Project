@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - SmartCareer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="studentDashboard-style.css">
+</head>
+
+<body>
+  <div class="glow-effect glow-1"></div>
+  <div class="glow-effect glow-2"></div>
+
+  <div id="header"></div>
+  <script>
+    fetch('headerAfterSign.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('header').innerHTML = html;
+      });
+  </script>
+
+  <!-- Centered logo below the header -->
+  <div class="logo-section">
+    <img src="images/logo.png" alt="SmartCareer Logo" class="floating">
+  </div>
+
+  <main class="main">
+    <div class="welcome-banner">
+      <h2>Welcome back, Alex!</h2>
+      <p>You have 3 new job matches and 1 upcoming interview. Stay on track with your career goals.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3><i class="fas fa-bullseye"></i> AI Job Matching</h3>
+        <p>Discover personalized job and internship opportunities powered by our advanced AI matching algorithm.</p>
+        <a href="job-matching.html" class="btn">View Matches <i class="fas fa-arrow-right"></i></a>
+        <span class="notification-badge">3</span>
+      </div>
+      
+      <div class="card">
+        <h3><i class="fas fa-file-alt"></i> Smart Resume Builder</h3>
+        <p>Create professional resumes with AI-powered suggestions tailored to your target positions.</p>
+        <a href="resume.html" class="btn">Build Resume <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card">
+        <h3><i class="fas fa-briefcase"></i> Applied Jobs</h3>
+        <p>Track all your applications in one place with real-time status updates and employer responses.</p>
+        <a href="Applied-Jobs.html" class="btn">Track Applications <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card">
+        <h3><i class="fas fa-calendar-check"></i> Interview Schedule</h3>
+        <p>Manage your upcoming interviews with calendar integration and preparation resources.</p>
+        <a href="interview-schedule.html" class="btn">My Interviews <i class="fas fa-arrow-right"></i></a>
+        <span class="notification-badge">1</span>
+      </div>
+      
+      <div class="card">
+        <h3><i class="fas fa-chart-line"></i> Progress Tracker</h3>
+        <p>Visualize your internship journey with analytics and personalized improvement recommendations.</p>
+        <a href="progress-tracker.html" class="btn">View Progress <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card">
+        <h3><i class="fas fa-lightbulb"></i> Career Insights</h3>
+        <p>Get AI-generated market analysis and personalized career path recommendations.</p>
+        <a href="insights.html" class="btn">Explore Insights <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      
+      
+      
+    </div>
+  </main>
+
+  <div id="footer"></div>
+  <script>
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => {
+        document.body.insertAdjacentHTML('beforeend', html);
+      });
+  </script>
+
+  
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employer Sign Up - SmartCareer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="signUpPage-style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="footer-style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header"></div>
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header').innerHTML = html);
+  </script>
+
+  <!-- Page Content -->
+  <div class="page-wrapper">
+    <div class="login-container">
+      <h2>Employer Sign Up</h2>
+      <p class="sub-text">Create your employer account on SmartCareer</p>
+
+      <form>
+        <div class="row-group">
+          <div class="form-group">
+            <label for="companyName">Company Name</label>
+            <div class="input-icon">
+              <i class="fas fa-building"></i>
+              <input type="text" id="companyName" placeholder="Company name" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Company Email</label>
+            <div class="input-icon">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email" placeholder="example@company.com" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="row-group">
+          <div class="form-group">
+            <label for="location">Company Location</label>
+            <div class="input-icon">
+              <i class="fas fa-map-marker-alt"></i>
+              <input type="text" id="location" placeholder="City, Country" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="employeesCount">Number of Employees</label>
+            <div class="input-icon">
+              <i class="fas fa-users"></i>
+              <input type="number" id="employeesCount" placeholder="e.g. 50" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="row-group">
+          <div class="form-group">
+            <label for="specialization">Company Specialization</label>
+            <div class="input-icon">
+              <i class="fas fa-briefcase"></i>
+              <input type="text" id="specialization" placeholder="e.g. IT, Marketing" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <div class="input-icon">
+              <i class="fas fa-phone"></i>
+              <input type="tel" id="phone" placeholder="+962 7XXXXXXXX" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="row-group">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-icon">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="password" placeholder="Create a password" required />
+            </div>
+          </div>
+        </div>
+
+<button type="submit" class="btn-login" id="signUpBtn">Sign Up</button>      </form>
+
+      <div class="footer-text">
+        Already have an account? <a href="LogIn-Page.html">Login</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    <script>
+      fetch('footer.html')
+        .then(res => res.text())
+        .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+  </div>
+
+  <!-- FontAwesome Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+  document.getElementById('signUpBtn').addEventListener('click', function(event) {
+    event.preventDefault(); 
+    window.location.href = 'employer.html'; 
+  });
+</script>
+
+
+</body>
+</html>

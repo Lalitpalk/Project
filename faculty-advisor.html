@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty Advisor Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Style.css" />
+  
+  <style>
+    body {
+      background-color: #f9fafb;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header style (same as homepage) */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .btn-logout {
+      background-color: #6366f1;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .dashboard-container {
+      padding: 2rem;
+    }
+
+    h1, h2 {
+      color: #1f2937;
+    }
+
+    .student-table {
+      width: 100%;
+      margin-top: 2rem;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .student-table th,
+    .student-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    .student-table th {
+      background-color: #e0e7ff;
+      color: #1f2937;
+    }
+
+    .feedback-btn {
+      background-color: #6366f1;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .feedback-btn:hover {
+      background-color: #4f46e5;
+    }
+
+    .overlay, .feedback-popup {
+      display: none;
+    }
+
+    .overlay.active {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+
+    .feedback-popup.active {
+      display: block;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .feedback-popup textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .popup-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+   
+  </style>
+</head>
+<body>
+    <!-- Updated Header -->
+  <div id="header"></div>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('header').innerHTML = html);
+</script>
+
+  <!-- Header -->
+  <header>
+    <button onclick="logout()" class="btn-logout">Log Out</button>
+  </header>
+
+  <!-- Main Content -->
+  <div class="dashboard-container">
+    <h1>Welcome, Faculty Advisor</h1>
+    <p style="color:#4b5563; margin-bottom: 2rem;">Review student progress, feedback, and reflections.</p>
+
+    <table class="student-table">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Internship Title</th>
+          <th>Progress</th>
+          <th>Weekly Report</th>
+          <th>Student Notes</th>
+          <th>Supervisor Feedback</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mirna Abu Baqi</td>
+          <td>Front-End Developer</td>
+          <td>75%</td>
+          <td>Completed Module 4</td>
+          <td>Improving React skills</td>
+          <td>Doing great so far</td>
+          <td><button class="feedback-btn" onclick="openFeedback('Mirna Abu Baqi')">Give Feedback</button></td>
+        </tr>
+        <tr>
+          <td>Yazan Emad</td>
+          <td>Data Analyst Intern</td>
+          <td>90%</td>
+          <td>Milestone 2 Passed</td>
+          <td>Learning new visualization tools</td>
+          <td>Excellent performance</td>
+          <td><button class="feedback-btn" onclick="openFeedback('Yazan Emad')">Give Feedback</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="overlay" id="overlay" onclick="closeFeedback()"></div>
+  <div class="feedback-popup" id="feedbackPopup">
+    <h3 id="studentName">Feedback for Student</h3>
+    <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+    <div class="popup-actions">
+      <button class="feedback-btn" onclick="submitFeedback()">Submit</button>
+      <button class="feedback-btn" style="background-color:#d1d5db; color: black;" onclick="closeFeedback()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      window.location.href = "home.html";
+    }
+
+    function openFeedback(name) {
+      document.getElementById("studentName").textContent = `Feedback for ${name}`;
+      document.getElementById("overlay").classList.add("active");
+      document.getElementById("feedbackPopup").classList.add("active");
+    }
+
+    function closeFeedback() {
+      document.getElementById("overlay").classList.remove("active");
+      document.getElementById("feedbackPopup").classList.remove("active");
+    }
+
+    function submitFeedback() {
+      const feedback = document.getElementById("feedbackText").value;
+      if (feedback.trim() === "") {
+        alert("Please write something before submitting.");
+        return;
+      }
+      alert("Feedback submitted successfully!");
+      document.getElementById("feedbackText").value = "";
+      closeFeedback();
+    }
+  </script>
+
+  <!-- to show footer -->
+<div id="footer"></div>
+    <script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('footer').innerHTML = html);
+</script>
+
+
+</body>
+</html>

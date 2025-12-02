@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Career Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- Updated Header -->
+  <div id="header"></div>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('header').innerHTML = html);
+</script>
+
+  <!-- Existing Content -->
+  <section class="hero" id="hero">
+    <img src="images/logo.png" alt="Platform Logo" style="width: 350px; margin-top: -2rem; margin-bottom: 1rem;" />
+    <h1>Find the Right Internship or Job, Smartly.</h1>
+    <p>AI-powered platform matching your skills with real opportunities.</p>
+    <div class="hero-buttons">
+      <button class="btn" onclick="window.location.href='signUpStudent.html?role=student'">I'm a Student</button>
+      <button class="btn" onclick="window.location.href='signUpEmployer.html?role=employer'">I'm an Employer</button>
+      <button class="btn" onclick="window.location.href='signUpFaculty.html?role=Faculty Advisor'">I'm a Faculty Advisor</button>
+
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Key Features</h2>
+    <div class="feature-list">
+      <div class="feature-item">🧠 AI Matching</div>
+      <div class="feature-item">📄 Resume Builder</div>
+      <div class="feature-item">👨‍💼 Employer Dashboard</div>
+      <div class="feature-item">📅 Interview Scheduling</div>
+      <div class="feature-item">📈 Progress Tracking</div>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="how-list">
+      <div class="how-step">Step 1: Create Profile</div>
+      <div class="how-step">Step 2: Get Matched</div>
+      <div class="how-step">Step 3: Apply & Track</div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to launch your career?</h2>
+    <button class="btn" style="margin-top: 1rem;" onclick="location.href='#hero'">Get Started</button>
+  </section>
+
+  <!-- to show footer -->
+<div id="footer"></div>
+    <script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('footer').innerHTML = html);
+</script>
+
+
+
+</body>
+</html>

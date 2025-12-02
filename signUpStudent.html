@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - SmartCareer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="signUpPage-style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="footer-style.css" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header').innerHTML = html);
+  </script>
+
+  <div class="page-wrapper">
+    <div class="login-container">
+      <h2>Student Sign Up</h2>
+      <p class="sub-text">Create your student account on SmartCareer</p>
+
+      <form>
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <div class="input-icon">
+            <i class="fas fa-user"></i>
+            <input type="text" id="fullname" placeholder="Your full name" required />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-icon">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="example@mail.com" required />
+          </div>
+        </div>
+
+        <!-- University -->
+        <div class="form-group">
+          <label for="university">University</label>
+          <div class="input-icon">
+            <i class="fas fa-university"></i>
+            <input type="text" id="university" placeholder="Your university name" required />
+          </div>
+        </div>
+
+        <!-- Major -->
+        <div class="form-group">
+          <label for="major">Major</label>
+          <div class="input-icon">
+            <i class="fas fa-book"></i>
+            <input type="text" id="major" placeholder="Your major" required />
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <div class="input-icon">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="phone" placeholder="05XXXXXXXX" required />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-icon">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="Create a password" required />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-login" id="signUpBtn"> Create CV </button>
+      </form>
+
+      <div class="footer-text">
+        Already have an account? <a href="LogIn-Page.html">Login</a>
+      </div>
+    </div>
+
+    <!-- to show footer -->
+    <div id="footer"></div>
+    <script>
+      fetch('footer.html')
+        .then(res => res.text())
+        .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+  </div>
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Redirect to student dashboard (optional) -->
+  <script>
+    document.getElementById('signUpBtn').addEventListener('click', function(event) {
+      event.preventDefault(); // prevent form submission
+      window.location.href = 'CVMaker.html'; // redirect after sign up
+    });
+  </script>
+</body>
+</html>

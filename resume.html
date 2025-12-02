@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CV Maker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="CVMaker-style.css">
+</head>
+<body>
+  <div id="headerAfterSign"></div>
+  <script>
+    fetch('headerAfterSign.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('headerAfterSign').innerHTML = html);
+  </script>
+
+  <main class="main-container">
+    <!-- Initial Options Section -->
+    <div class="cv-options" id="cv-options">
+      <h2>How would you like to proceed?</h2>
+      <div class="option-boxes">
+        <div class="option-card" onclick="showUploadSection()">
+          <i class="fas fa-file-upload"></i>
+          <p>If you have a CV</p>
+        </div>
+        <div class="option-card" onclick="showGeneratorSection()">
+          <i class="fas fa-robot"></i>
+          <p>Create a CV</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload CV Section -->
+    <div class="upload-section" id="upload-section">
+      <h2>Upload Your CV</h2>
+      <div class="upload-container">
+        <div class="file-upload-wrapper">
+          <label class="file-upload-label" for="file-upload">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Drag & drop your CV here or <span>browse files</span></p>
+            <p>Supports: PDF, DOC, DOCX</p>
+          </label>
+          <input type="file" id="file-upload" accept=".pdf,.doc,.docx" onchange="displayFileName(this)" />
+          <div class="file-name" id="file-name">No file selected</div>
+        </div>
+        <button class="primary-btn" onclick="GoToStudentPage()">Let's Find a Job</button>
+        <button class="back-btn" onclick="showOptionsSection()"><i class="fas fa-arrow-left"></i> Back to options</button>
+      </div>
+    </div>
+
+    <!-- Generate CV Section -->
+    <div class="generate-section" id="generate-section">
+      <h2>CV Generator by AI</h2>
+      <form class="cv-form">
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" class="form-control" placeholder="John Doe" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="john@example.com" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" class="form-control" placeholder="+1234567890" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="summary">Professional Summary</label>
+          <textarea id="summary" class="form-control" placeholder="Experienced software developer with 5+ years in web development..." required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="skills">Skills</label>
+          <input type="text" id="skills" class="form-control" placeholder="JavaScript, HTML, CSS, React, Node.js" required />
+          <p class="skills-hint">Separate skills with commas</p>
+        </div>
+        
+        <div class="form-group">
+          <label for="experience">Work Experience</label>
+          <textarea id="experience" class="form-control" placeholder="Senior Developer at XYZ Company (2020-Present)&#10;- Led a team of 5 developers&#10;- Implemented new features..." required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="education">Education</label>
+          <textarea id="education" class="form-control" placeholder="BSc in Computer Science, University of ABC (2015-2019)"></textarea>
+        </div>
+        
+        <button type="submit" class="primary-btn" onclick="GoToStudentPage()">Generate CV</button>
+        <button type="button" class="back-btn" onclick="showOptionsSection()"><i class="fas fa-arrow-left"></i> Back to options</button>
+      </form>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    
+  fetch('headerAfterSign.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('header').innerHTML = html);
+
+    fetch('footer.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('footer').innerHTML = html);
+
+    // Navigation between sections
+    function showUploadSection() {
+      document.getElementById('cv-options').style.display = 'none';
+      document.getElementById('generate-section').style.display = 'none';
+      document.getElementById('upload-section').style.display = 'block';
+    }
+
+    function showGeneratorSection() {
+      document.getElementById('cv-options').style.display = 'none';
+      document.getElementById('upload-section').style.display = 'none';
+      document.getElementById('generate-section').style.display = 'block';
+    }
+
+    function showOptionsSection() {
+      document.getElementById('cv-options').style.display = 'block';
+      document.getElementById('upload-section').style.display = 'none';
+      document.getElementById('generate-section').style.display = 'none';
+      // Reset file name display
+      document.getElementById('file-name').textContent = 'No file selected';
+    }
+
+    // Display selected file name
+    function displayFileName(input) {
+      const fileNameDisplay = document.getElementById('file-name');
+      if (input.files.length > 0) {
+        fileNameDisplay.textContent = input.files[0].name;
+      } else {
+        fileNameDisplay.textContent = 'No file selected';
+      }
+    }
+function GoToStudentPage() {
+      // Redirect to the student page or perform any action needed
+location.href = 'student_dashboard.html'; // Redirect to a preview page after form submission
+    }
+    // Form submission
+    document.querySelector('.cv-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Here you would typically send the form data to your backend
+    });
+  </script>
+</body>
+</html>

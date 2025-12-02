@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employer Dashboard | Smart Internship Platform</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="employer-style.css" />
+</head>
+
+<body>
+  <!-- Glow effects -->
+  <div class="glow-effect" style="top: 20%; left: 10%;"></div>
+  <div class="glow-effect" style="bottom: 10%; right: 15%;"></div>
+
+  <!-- Header -->
+  <div id="header"></div>
+  <script>
+    fetch('headerAfterSign.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header').innerHTML = html);
+  </script>
+
+  <main>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" role="navigation" aria-label="Employer Dashboard Navigation">
+      <button class="active" data-target="jobs-panel" aria-current="page">
+        <i class="fas fa-briefcase"></i>
+        <span>Job Postings</span>
+      </button>
+      <button data-target="applications-panel">
+        <i class="fas fa-file-alt"></i>
+        <span>Applications</span>
+      </button>
+      <button data-target="interviews-panel">
+        <i class="fas fa-calendar-check"></i>
+        <span>Interviews</span>
+      </button>
+      <button data-target="internship-progress-panel">
+        <i class="fas fa-chart-line"></i>
+        <span>Internship Progress</span>
+      </button>
+      <button data-target="analytics-panel">
+        <i class="fas fa-chart-pie"></i>
+        <span>Analytics</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="content-area">
+      <!-- Job Postings Panel -->
+      <section id="jobs-panel" class="content-panel active" tabindex="0" aria-label="Job Postings Panel">
+        <div class="panel-header">
+          <h2><i class="fas fa-briefcase"></i> Job Postings</h2>
+          <button class="btn-primary" id="add-job-btn">
+            <i class="fas fa-plus"></i> Add New Job
+          </button>
+        </div>
+        
+        <div class="job-list" id="job-list">
+          <!-- Job cards inserted here dynamically -->
+        </div>
+      </section>
+
+      <!-- Applications Panel -->
+      <section id="applications-panel" class="content-panel">
+        <div class="panel-header">
+          <h2><i class="fas fa-file-alt"></i> Applications</h2>
+        </div>
+        
+        <table class="applications-table">
+          <thead>
+            <tr>
+              <th>Candidate</th>
+              <th>Job Title</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="applications-tbody">
+            <tr>
+              <td>Ali</td>
+              <td>Data Analyst</td>
+              <td><span class="status-badge status-applied">Applied</span></td>
+              <td><button onclick="openScheduleForm('Ali', 'Data Analyst')">
+                <i class="fas fa-calendar-plus"></i> Schedule
+              </button></td>
+            </tr>edit
+            <tr>
+              <td>Sarah</td>
+              <td>Frontend Developer</td>
+              <td><span class="status-badge status-applied">Applied</span></td>
+              <td><button onclick="openScheduleForm('Sarah', 'Frontend Developer')">
+                <i class="fas fa-calendar-plus"></i> Schedule
+              </button></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <!-- Schedule Form -->
+        <div id="schedule-form">
+          <h3><i class="fas fa-calendar-alt"></i> Schedule Interview</h3>
+          <form onsubmit="submitInterview(event)">
+            <p id="interview-info" style="margin-bottom: 1rem;"></p>
+            <label for="interview-date">Select Date:</label>
+            <input type="date" id="interview-date" required />
+            
+            <label for="interview-time">Select Time:</label>
+            <input type="time" id="interview-time" required />
+            
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">
+                <i class="fas fa-check"></i> Confirm
+              </button>
+              <button type="button" onclick="closeScheduleForm()">
+                <i class="fas fa-times"></i> Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Interviews Panel -->
+      <section id="interviews-panel" class="content-panel" tabindex="0" aria-label="Interviews Panel">
+        <div class="panel-header">
+          <h2><i class="fas fa-calendar-check"></i> Interview Scheduling</h2>
+        </div>
+        
+        <table class="applications-table" aria-describedby="interview-description">
+          <caption id="interview-description" class="sr-only">List of scheduled interviews</caption>
+          <thead>
+            <tr>
+              <th>Candidate</th>
+              <th>Job Title</th>
+              <th>Date & Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="interviews-tbody">
+            <!-- Rows will be added here dynamically -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Internship Progress Panel -->
+      <section id="internship-progress-panel" class="content-panel" tabindex="0" aria-label="Internship Progress Panel">
+        <div class="panel-header">
+          <h2><i class="fas fa-chart-line"></i> Internship Progress Tracking</h2>
+        </div>
+        
+        <table class="applications-table" aria-describedby="internship-progress-description">
+          <caption id="internship-progress-description" class="sr-only">Progress of current interns</caption>
+          <thead>
+            <tr>
+              <th>Intern</th>
+              <th>Job Title</th>
+              <th>Milestone</th>
+              <th>Completion</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Yazan</td>
+              <td>Frontend Developer Internship</td>
+              <td>Build responsive components</td>
+              <td>
+                <div class="progress-bar" style="background: #e2e8f0; border-radius: 4px; height: 8px;">
+                  <div style="width: 75%; background: var(--success); height: 100%; border-radius: 4px;"></div>
+                </div>
+                <span>75%</span>
+              </td>
+              <td><span class="status-badge status-ontrack">On Track</span></td>
+            </tr>
+            <tr>
+              <td>Omar</td>
+              <td>Backend Engineer</td>
+              <td>Implement user auth API</td>
+              <td>
+                <div class="progress-bar" style="background: #e2e8f0; border-radius: 4px; height: 8px;">
+                  <div style="width: 50%; background: var(--warning); height: 100%; border-radius: 4px;"></div>
+                </div>
+                <span>50%</span>
+              </td>
+              <td><span class="status-badge status-delayed">Delayed</span></td>
+            </tr>
+            <tr>
+              <td>Saif</td>
+              <td>UI/UX Designer Internship</td>
+              <td>Design wireframes</td>
+              <td>
+                <div class="progress-bar" style="background: #e2e8f0; border-radius: 4px; height: 8px;">
+                  <div style="width: 90%; background: var(--primary); height: 100%; border-radius: 4px;"></div>
+                </div>
+                <span>90%</span>
+              </td>
+              <td><span class="status-badge status-completed">Completed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Analytics Panel -->
+      <section id="analytics-panel" class="content-panel" tabindex="0" aria-label="Analytics Panel">
+        <div class="panel-header">
+          <h2><i class="fas fa-chart-pie"></i> Analytics & Insights</h2>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-card card-hover-effect">
+            <h3>Total Job Views</h3>
+            <div class="value">1,582</div>
+          </div>
+          <div class="stat-card card-hover-effect">
+            <h3>Applications Received</h3>
+            <div class="value">234</div>
+          </div>
+          <div class="stat-card card-hover-effect">
+            <h3>Interviews Scheduled</h3>
+            <div class="value">32</div>
+          </div>
+          <div class="stat-card card-hover-effect">
+            <h3>Active Internships</h3>
+            <div class="value">6</div>
+          </div>
+          <div class="stat-card card-hover-effect">
+            <h3>Completion Rate</h3>
+            <div class="value">83%</div>
+          </div>
+        </div>
+        
+        <div class="chart-container card-hover-effect">
+          <h3><i class="fas fa-chart-bar"></i> Applications per Job</h3>
+          <canvas id="applicationsBarChart" height="150"></canvas>
+        </div>
+        
+        <div class="chart-container card-hover-effect">
+          <h3><i class="fas fa-chart-line"></i> Applications Over Time</h3>
+          <canvas id="applicationsLineChart" height="150"></canvas>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Job Form Modal -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <div class="modal" role="document">
+      <button class="modal-close" aria-label="Close modal" id="modal-close-btn">&times;</button>
+      <h3 id="modal-title"><i class="fas fa-briefcase"></i> Add New Job</h3>
+      <form id="job-form">
+        <label for="job-title-input">Job Title</label>
+        <input id="job-title-input" name="title" type="text" required placeholder="e.g. Frontend Developer" />
+        
+        <label for="job-description-input">Job Description</label>
+        <textarea id="job-description-input" name="description" rows="4" required placeholder="Describe the position..."></textarea>
+        
+        <label for="job-location-input">Location</label>
+        <input id="job-location-input" name="location" type="text" required placeholder="e.g. Remote, New York, etc." />
+        
+        <label for="job-type-select">Job Type</label>
+        <select id="job-type-select" name="jobType" required>
+          <option value="">Select Type</option>
+          <option value="Full-time">Full-time</option>
+          <option value="Part-time">Part-time</option>
+          <option value="Internship">Internship</option>
+          <option value="Remote">Remote</option>
+        </select>
+        
+        <label for="job-status-select">Status</label>
+        <select id="job-status-select" name="status" required>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        
+        <button type="submit" class="btn-primary">
+          <i class="fas fa-save"></i> Save Job
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+  <script>
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('footer').innerHTML = html);
+  </script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // === Simple SPA navigation for panels ===
+    const navButtons = document.querySelectorAll('nav.sidebar button');
+    const panels = document.querySelectorAll('section.content-panel');
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        navButtons.forEach(b => {
+          b.classList.remove('active');
+          b.removeAttribute('aria-current');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-current', 'page');
+
+        const targetId = btn.getAttribute('data-target');
+        panels.forEach(panel => {
+          panel.classList.toggle('active', panel.id === targetId);
+        });
+      });
+    });
+
+    // === Modal for Add/Edit Job ===
+    const addJobBtn = document.getElementById('add-job-btn');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const jobForm = document.getElementById('job-form');
+
+    // Store jobs in local array for demo
+    let jobs = [
+      {
+        id: 1,
+        title: "Frontend Developer Internship",
+        description: "Work on UI components using React and Tailwind. Responsibilities include developing responsive interfaces, collaborating with designers, and participating in code reviews.",
+        location: "Remote",
+        jobType: "Internship",
+        status: "Active",
+        postedOn: "2025-05-20",
+        applications: 8
+      },
+      {
+        id: 2,
+        title: "Backend Engineer",
+        description: "Develop REST APIs with Node.js and Express. Design database schemas, optimize queries, and implement authentication systems.",
+        location: "New York, NY",
+        jobType: "Full-time",
+        status: "Inactive",
+        postedOn: "2025-05-10",
+        applications: 5
+      },
+      {
+        id: 3,
+        title: "UX/UI Designer",
+        description: "Create wireframes and prototypes for web applications. Conduct user research and collaborate with developers to implement designs.",
+        location: "San Francisco, CA",
+        jobType: "Full-time",
+        status: "Active",
+        postedOn: "2025-05-15",
+        applications: 3
+      }
+    ];
+
+    // Render jobs in job list
+    function renderJobs() {
+      const jobList = document.getElementById('job-list');
+      jobList.innerHTML = '';
+      jobs.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'job-card card-hover-effect';
+        card.innerHTML = `
+          <div class="job-card-header">
+            <h3>${job.title}</h3>
+            <span class="job-status ${job.status === 'Inactive' ? 'inactive' : ''}">${job.status}</span>
+          </div>
+          <p class="job-details">${job.description}</p>
+          <p class="job-details"><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> ${job.location}</p>
+          <p class="job-details"><strong><i class="fas fa-clock"></i> Type:</strong> ${job.jobType}</p>
+          <p class="job-details"><strong><i class="fas fa-users"></i> Applications:</strong> ${job.applications}</p>
+          <p class="job-details"><small><i class="fas fa-calendar"></i> Posted on: ${job.postedOn}</small></p>
+          <div class="job-actions">
+
+            <button data-id="${job.id}" class="edit-job-btn">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button data-id="${job.id}" class="toggle-status-btn">
+              ${job.status === 'Active' ? '<i class="fas fa-pause"></i> Deactivate' : '<i class="fas fa-play"></i> Activate'}
+            </button>
+          </div>
+        `;
+        jobList.appendChild(card);
+      });
+
+      // Attach handlers for edit & toggle status
+      document.querySelectorAll('.edit-job-btn').forEach(btn => {
+        btn.addEventListener('click', () => openEditJobModal(parseInt(btn.dataset.id)));
+      });
+      document.querySelectorAll('.toggle-status-btn').forEach(btn => {
+        btn.addEventListener('click', () => toggleJobStatus(parseInt(btn.dataset.id)));
+      });
+    }
+
+    function openEditJobModal(id) {
+      const job = jobs.find(j => j.id === id);
+      if (!job) return;
+
+      document.getElementById('modal-title').textContent = 'Edit Job';
+      document.getElementById('modal-title').innerHTML = '<i class="fas fa-edit"></i> Edit Job';
+      jobForm.title.value = job.title;
+      jobForm.description.value = job.description;
+      jobForm.location.value = job.location;
+      jobForm.jobType.value = job.jobType;
+      jobForm.status.value = job.status;
+      jobForm.dataset.editingId = id;
+
+      openModal();
+    }
+
+    function toggleJobStatus(id) {
+      const job = jobs.find(j => j.id === id);
+      if (!job) return;
+      job.status = job.status === 'Active' ? 'Inactive' : 'Active';
+      renderJobs();
+    }
+
+    function openModal() {
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      delete jobForm.dataset.editingId;
+      jobForm.reset();
+    }
+
+    addJobBtn.addEventListener('click', () => {
+      document.getElementById('modal-title').textContent = 'Add New Job';
+      document.getElementById('modal-title').innerHTML = '<i class="fas fa-plus"></i> Add New Job';
+      jobForm.reset();
+      openModal();
+    });
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', e => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    // Handle job form submission (add or edit)
+    jobForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const newJob = {
+        title: jobForm.title.value.trim(),
+        description: jobForm.description.value.trim(),
+        location: jobForm.location.value.trim(),
+        jobType: jobForm.jobType.value,
+        status: jobForm.status.value,
+        postedOn: new Date().toISOString().split('T')[0],
+        applications: Math.floor(Math.random() * 10) + 1
+      };
+      
+      if (jobForm.dataset.editingId) {
+        // Edit existing job
+        const id = parseInt(jobForm.dataset.editingId);
+        const index = jobs.findIndex(j => j.id === id);
+        if (index !== -1) {
+          jobs[index] = { ...jobs[index], ...newJob };
+        }
+      } else {
+        // Add new job with unique ID
+        newJob.id = jobs.length ? Math.max(...jobs.map(j => j.id)) + 1 : 1;
+        jobs.push(newJob);
+      }
+      renderJobs();
+      closeModal();
+    });
+
+    // Schedule Interview
+    let currentCandidate = "";
+    let currentJob = "";
+    
+    function openScheduleForm(candidate, job) {
+      currentCandidate = candidate;
+      currentJob = job;
+      document.getElementById('interview-info').textContent = `Schedule interview for ${candidate} – ${job}`;
+      document.getElementById('schedule-form').style.display = 'block';
+      
+      // Set default date to tomorrow
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById('interview-date').valueAsDate = tomorrow;
+    }
+
+    function closeScheduleForm() {
+      document.getElementById('schedule-form').style.display = 'none';
+      document.getElementById('interview-date').value = '';
+      document.getElementById('interview-time').value = '';
+    }
+
+    function submitInterview(e) {
+      e.preventDefault();
+      const date = document.getElementById('interview-date').value;
+      const time = document.getElementById('interview-time').value;
+      const tbody = document.getElementById('interviews-tbody');
+      const row = document.createElement('tr');
+      
+      const formattedDate = new Date(`${date}T${time}`).toLocaleString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
+      row.innerHTML = `
+        <td>${currentCandidate}</td>
+        <td>${currentJob}</td>
+        <td>${formattedDate}</td>
+        <td><span class="status-badge status-applied">Scheduled</span></td>
+      `;
+      tbody.appendChild(row);
+      
+      // Show success message
+      alert(`Interview scheduled for ${currentCandidate} (${currentJob}) on ${formattedDate}`);
+      
+      closeScheduleForm();
+    }
+
+    // Initialize charts
+    function initCharts() {
+      // Applications per Job (Bar Chart)
+      const barCtx = document.getElementById('applicationsBarChart').getContext('2d');
+      new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: jobs.map(job => job.title),
+          datasets: [{
+            label: 'Applications',
+            data: jobs.map(job => job.applications),
+            backgroundColor: '#6366f1',
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          }
+        }
+      });
+
+      // Applications Over Time (Line Chart)
+      const lineCtx = document.getElementById('applicationsLineChart').getContext('2d');
+      new Chart(lineCtx, {
+        type: 'line',
+        data: {
+          labels: ['May 20', 'May 21', 'May 22', 'May 23', 'May 24', 'May 25'],
+          datasets: [{
+            label: 'Applications Submitted',
+            data: [2, 3, 4, 3, 6, 5],
+            fill: true,
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            borderColor: '#4f46e5',
+            tension: 0.3,
+            pointBackgroundColor: '#4f46e5',
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderJobs();
+      initCharts();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Market Insights - SmartCareer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #f9fafb;
+      color: #1f2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #6366f1;
+    }
+    .btn {
+      background-color: #6366f1;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #4f46e5;
+    }
+    main {
+      padding: 2rem;
+      flex: 1;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background-color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: #4b5563;
+    }
+    .card p {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+    .filter {
+      margin-bottom: 2rem;
+    }
+    .filter label {
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+    select {
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    canvas {
+      margin: 2rem 0;
+      max-width: 100%;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title">Job Market Insights</div>
+    <a href="student_dashboard.html" class="btn">Back to Dashboard</a>
+  </header>
+
+  <main>
+    <h2 class="section-title">Career Trends & Recommendations</h2>
+
+    <div class="filter">
+      <label for="major">Filter by Major:</label>
+      <select id="major" onchange="filterInsights()">
+        <option value="all">All Fields</option>
+        <option value="software">Software Engineering</option>
+        <option value="data">Data Science</option>
+        <option value="design">Design</option>
+        <option value="security">Cybersecurity</option>
+      </select>
+    </div>
+
+    <div id="insightsContainer" class="insights-grid"></div>
+
+    <canvas id="jobTrendsChart" width="400" height="200"></canvas>
+  </main>
+
+  <footer>
+    © 2025 SmartCareer. All rights reserved.
+  </footer>
+
+  <script>
+    const insights = {
+      all: [
+        { title: "💻 Software Development", text: "High demand for full-stack developers, especially with experience in JavaScript, React, and Node.js." },
+        { title: "📊 Data Analysis", text: "Strong job growth in data science and analytics. Key tools: Python, SQL, Excel, and Tableau." },
+        { title: "🎨 UI/UX Design", text: "Design roles are increasing with a focus on mobile-first design and accessibility." },
+        { title: "🛡️ Cybersecurity", text: "Companies are hiring security analysts and penetration testers. Certifications are a plus." },
+      ],
+      software: [
+        { title: "💻 Software Development", text: "High demand for full-stack developers, especially with experience in JavaScript, React, and Node.js." },
+      ],
+      data: [
+        { title: "📊 Data Analysis", text: "Strong job growth in data science and analytics. Key tools: Python, SQL, Excel, and Tableau." },
+      ],
+      design: [
+        { title: "🎨 UI/UX Design", text: "Design roles are increasing with a focus on mobile-first design and accessibility." },
+      ],
+      security: [
+        { title: "🛡️ Cybersecurity", text: "Companies are hiring security analysts and penetration testers. Certifications are a plus." },
+      ],
+    };
+
+    function filterInsights() {
+      const major = document.getElementById("major").value;
+      const container = document.getElementById("insightsContainer");
+      container.innerHTML = "";
+      insights[major].forEach(item => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `<h3>${item.title}</h3><p>${item.text}</p>`;
+        container.appendChild(div);
+      });
+    }
+
+    filterInsights();
+
+    const ctx = document.getElementById('jobTrendsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Software Dev', 'Data Science', 'UI/UX Design', 'Cybersecurity'],
+        datasets: [{
+          label: 'Job Openings (in thousands)',
+          data: [120, 90, 65, 80],
+          backgroundColor: ['#6366f1', '#60a5fa', '#34d399', '#fbbf24']
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+
+<div id="footer"></div>
+    <script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('footer').innerHTML = html);
+</script>
+
+</body>
+</html>
