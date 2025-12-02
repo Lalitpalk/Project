@@ -1,0 +1,150 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Applied Jobs - SmartCareer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #f9fafb;
+      color: #1f2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #6366f1;
+    }
+    .btn {
+      background-color: #6366f1;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #4f46e5;
+    }
+    main {
+      padding: 2rem;
+      flex: 1;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+    .job-list {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .job-card {
+      background-color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .job-card h3 {
+      margin-bottom: 0.5rem;
+      color: #4b5563;
+    }
+    .job-card p {
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    .status {
+      padding: 0.4rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      width: fit-content;
+    }
+    .status.pending {
+      background-color: #fef3c7;
+      color: #b45309;
+    }
+    .status.interview {
+      background-color: #dbeafe;
+      color: #1d4ed8;
+    }
+    .status.rejected {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    .status.accepted {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title">Applied Jobs</div>
+    <a href="student_dashboard.html" class="btn">Back to Dashboard</a>
+  </header>
+
+  <main>
+    <h2 class="section-title">Your Applications</h2>
+
+    <div class="job-list">
+      <div class="job-card">
+        <h3>Frontend Intern - TechCorp</h3>
+        <p>Applied on: May 2, 2025</p>
+        <div class="status pending">Pending Review</div>
+      </div>
+      <div class="job-card">
+        <h3>Data Analyst Intern - DataDrive</h3>
+        <p>Applied on: April 28, 2025</p>
+        <div class="status interview">Interview Scheduled</div>
+      </div>
+      <div class="job-card">
+        <h3>Marketing Intern - GrowthLab</h3>
+        <p>Applied on: April 22, 2025</p>
+        <div class="status rejected">Application Rejected</div>
+      </div>
+      <div class="job-card">
+        <h3>Backend Developer Intern - CodeNest</h3>
+        <p>Applied on: May 1, 2025</p>
+        <div class="status accepted">Accepted</div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+<script>
+fetch('footer.html')
+    .then(res => res.text())
+    .then(html => {
+      document.body.insertAdjacentHTML('beforeend', html);
+    });
+  </script>
+
+</body>
+</html>
